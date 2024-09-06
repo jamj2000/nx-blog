@@ -11,6 +11,7 @@ async function Header() {
             <div className="container mx-auto flex justify-between items-center px-4">
                 <div className="flex items-center space-x-4">
                     <Link href="/">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src='/blog-logo.png' className="h-16 w-auto" alt="Logo" />
                     </Link>
                     <div className="bg-white h-16 w-1"></div>

@@ -8,7 +8,7 @@ import { PAGE, PER_PAGE } from '@/lib/pagination'
 import { FaPlus, FaPen, FaTrash } from "react-icons/fa6";
 import { Suspense } from 'react'
 import Spinner from '@/components/spinner'
-import ListaCategory from '@/components/ListaCategory'
+import CategoryList from '@/components/CategoryList'
 
 export const dynamic = 'force-dynamic'
 
@@ -44,7 +44,7 @@ export default async function CategoryHome({ searchParams }) {
                     </Link>
                 }
                 <Suspense fallback={<Spinner /> }>
-                    <ListaCategory searchParams={searchParams} />
+                    <CategoryList searchParams={searchParams} />
                 </Suspense>
 
                 {/* <PaginationControls

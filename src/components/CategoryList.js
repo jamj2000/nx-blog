@@ -8,7 +8,7 @@ import { auth } from '@/auth'
 import Modal from './Modal';
 
 
-async function ListaCategory({ searchParams }) {
+async function CategoryList({ searchParams }) {
     const session = await auth()
 
     const page = Number(searchParams['page'] ?? PAGE)
@@ -74,4 +74,4 @@ async function ListaCategory({ searchParams }) {
     )
 }
 
-export default ListaCategory
+export default CategoryList

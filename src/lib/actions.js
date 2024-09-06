@@ -194,6 +194,21 @@ export async function getPosts() {
 }
 
 
+export async function getPaginatedPosts() {
+  try {
+    const posts = await prisma.post.findMany({
+      take: end-start,
+      skip: start,
+      include: { categories: true }
+    })
+
+    return posts;
+  } catch (error) {
+    // console.log(error);  
+    return null;
+  }
+}
+
 export async function getPost(postId) {
   const id = Number(postId)
   try {
@@ -208,6 +223,7 @@ export async function getPost(postId) {
     return null;
   }
 }
+
 
 
 
@@ -327,11 +343,11 @@ export async function editPost(formData) {
       },
       include: { categories: true }
     })
-    revalidatePath('/posts')
+    // revalidatePath('/posts')
   } catch (error) {
     console.log(error);
   }
-  redirect('/posts');
+  // redirect('/posts');
 }
 
 

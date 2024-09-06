@@ -1,4 +1,4 @@
-import Form from "@/components/forms/post"
+import Form from "@/components/forms/post.original"
 import { deletePost } from "@/lib/actions"
 
 

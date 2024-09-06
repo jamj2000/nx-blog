@@ -6,8 +6,8 @@ import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 import { EditorProvider, useCurrentEditor } from '@tiptap/react'
-import { generateHTML } from '@tiptap/html'
 import StarterKit from '@tiptap/starter-kit'
+//import { generateHTML } from '@tiptap/html'
 import {
   Bold,
   Italic,
@@ -33,18 +33,26 @@ import {
   Delete,
   Eye
 } from 'lucide-react'
-import React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
+
+// import { useEditor, EditorContent } from '@tiptap/react'
+// import StarterKit from '@tiptap/starter-kit'
+
 
 
 
 
 const MenuBar = ({ setMessage }) => {
-
   const { editor } = useCurrentEditor()
+
   const [color, setColor] = useState('#000000')
-  const [texto, setTexto] = useState( editor.getHTML())
-  
+  const [texto, setTexto] = useState(editor.getHTML())
+
+  // useEffect(() => {
+  //   setTexto(editor?.getHTML())
+  // }, [editor])
+
   if (!editor) {
     return null
   }
@@ -55,9 +63,9 @@ const MenuBar = ({ setMessage }) => {
     alert(html) // Mostrar el HTML en una alerta
   }
 
-    editor.on('update', ({editor}) => {
-      setTexto (editor.getHTML())
-    })
+  editor.on('update', ({ editor }) => {
+    setTexto(editor.getHTML())
+  })
 
 
   return (
@@ -258,11 +266,21 @@ const extensions = [
 ]
 
 
-export default function Editor ({ contenido })  {
+export default function Editor({ contenido }) {
   const [message, setMessage] = useState('')
+  // const editor = useEditor({
+  //   // https://tiptap.dev/blog/release-notes/say-hello-to-tiptap-2-5-our-most-performant-editor-yet
+  //   immediatelyRender: false,
+  //   shouldRerenderOnTransaction: false,
+  // })
+
   return (
-    <EditorProvider  slotBefore={<MenuBar setMessage={setMessage} />} extensions={extensions} content={contenido}>
-    {/* <p>{message}</p> */}
-  </EditorProvider>
+    // <>
+    //   <MenuBar setMessage={setMessage} editor={editor} />
+    //   <EditorContent editor={editor} extensions={extensions} content={contenido}/>
+    // </>
+    <EditorProvider slotBefore={<MenuBar setMessage={setMessage} />} extensions={extensions} content={contenido} >
+      {/* <p>{message}</p> */}
+    </EditorProvider>
   )
 }

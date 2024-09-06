@@ -1,4 +1,4 @@
-import Form from "@/components/forms/post";
+import Form from "@/components/forms/post.original";
 import { editPost } from "@/lib/actions";
 
 
