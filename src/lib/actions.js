@@ -292,7 +292,7 @@ export async function newPost(formData) {
   } catch (error) {
     console.log(error);
   }
-  redirect('/posts');
+  // redirect('/posts');
 }
 
 
@@ -343,7 +343,7 @@ export async function editPost(formData) {
       },
       include: { categories: true }
     })
-    // revalidatePath('/posts')
+    revalidatePath('/posts')
   } catch (error) {
     console.log(error);
   }
@@ -366,7 +366,7 @@ export async function deletePost(formData) {
     console.log(error);
   }
 
-  redirect('/posts');
+  // redirect('/posts');
 }
 
 

@@ -37,7 +37,7 @@ async function post({ post }) {
                     </div>
                 }
                 <Modal icon={<FaPen size='1rem' color='white' />}   
-                    className='cursor-pointer flex gap-2 items-center text-white bg-red-600 p-2 rounded-full self-end hover:shadow-md'>
+                    className='cursor-pointer flex gap-2 items-center text-white bg-yellow-600 p-2 rounded-full self-end hover:shadow-md'>
 
                     <Form action={editPost} post={post} disabled={false} title="Actualizar este post" />
                 </Modal>
