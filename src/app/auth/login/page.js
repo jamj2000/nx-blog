@@ -1,4 +1,7 @@
 import LoginForm from '@/components/forms/login'
+import Link from 'next/link';
+import { auth } from '@/auth';
+import { redirect } from "next/navigation"
 
 
 // https://next-auth.js.org/configuration/pages#sign-in-page
@@ -15,22 +18,30 @@ errors.set('SessionRequired', "Error al iniciar sesión. Verifique que los detal
 errors.set('Default', "No se puede iniciar sesión.");
 
 
-function page({ searchParams }) {
+async function page({ searchParams }) {
   const { error, callbackUrl } = searchParams
   // Usamos globalThis para almacenar variable global
   // La usaremos en los actions de login
   globalThis.callbackUrl = decodeURIComponent(callbackUrl ?? '/posts')
 
-  return (
-    <>
+  const sesion = await auth()
+
+  if (!sesion) {
+    return (
       <div className="form">
-      {error && <h3>{errors.get(error)}</h3>}
+        {error && <h3>{errors.get(error)}</h3>}
         <h1>Iniciar sesión</h1>
-        <LoginForm  />
-        
+        <LoginForm />
+        <Link href='/auth/register' className='text-center text-blue-700'>
+          ¿ No tienes cuenta ?
+        </Link>
       </div>
-    </>
-  )
+    )
+  }
+  else {
+    redirect('/auth/logout')
+  }
+
 }
 
 export default page

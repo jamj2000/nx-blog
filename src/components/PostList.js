@@ -1,20 +1,18 @@
-import Link from 'next/link';
+
 import Post from '@/components/Post'
 import PaginationControls from '@/components/PaginationControls'
 import { PAGE, PER_PAGE } from '@/lib/pagination'
-import { FaPen, FaTrash, FaArrowUpRightFromSquare } from "react-icons/fa6";
-import { getPostsWithCategory, getAllPosts, editPost, deletePost, getPaginatedPosts } from '@/lib/actions'
-import { auth } from "@/auth"
-import Modal from './Modal';
-// import Form from './forms/post';
+import {  getPaginatedPosts } from '@/lib/actions'
+// import { auth } from "@/auth"
 
-import dynamic from 'next/dynamic'
+
+// import dynamic from 'next/dynamic'
  
-const Form = dynamic(() => import('@/components/Post'), { ssr: true })
+// const Form = dynamic(() => import('@/components/Post'), { ssr: true })
 
 
-async function PostList({ searchParams }) {
-    const session = await auth()
+async function PostList({ searchParams}) {
+    // const session = await auth()
 
     const page = Number(searchParams['page'] ?? PAGE)
     const per_page = Number(searchParams['per_page'] ?? PER_PAGE)
@@ -26,11 +24,6 @@ async function PostList({ searchParams }) {
 
     let posts = []
     posts = await getPaginatedPosts(start, end)
-    // if (category) {
-    //     posts = await getPostsWithCategory(category)
-    // } else {
-    //     posts = await getAllPosts(page)
-    // }
 
     let entries = []
 
@@ -45,8 +38,6 @@ async function PostList({ searchParams }) {
                 hasPrevPage={start > 0}
                 total={posts.length}
             />
-
-            {/* {entries.map((post) =>   <Post key={post.id} post={post} /> )} */}
 
             {entries.map((post) =>
                 <Post key={post.id} post={post} />

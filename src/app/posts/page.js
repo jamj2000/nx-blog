@@ -7,10 +7,11 @@ import { PAGE, PER_PAGE } from '@/lib/pagination'
 import { FaPen, FaTrash, FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { getPostsWithCategory, getAllPosts, editPost, deletePost } from '@/lib/actions'
 import Modal from '@/components/Modal';
-import Form from '@/components/forms/post.original';
+import Form from '@/components/forms/post';
 import { Suspense } from 'react';
-import Spinner from '@/components/spinner';
 import PostList from '@/components/PostList';
+import Spinner from '@/components/spinner';
+
 
 export default async function PostHome({ searchParams }) {
     const session = await auth()

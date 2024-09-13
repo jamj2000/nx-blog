@@ -34,22 +34,24 @@ async function post({ post }) {
                                 <FaArrowUpRightFromSquare size='1rem' color='white' />
                             </Link>
                         }
+
+                        <Modal icon={<FaPen size='1rem' color='white' />}
+                            className='cursor-pointer flex gap-2 items-center text-white bg-yellow-400 p-4 rounded-full self-end hover:shadow-md'>
+
+                            <Form action={editPost} post={post} disabled={false} title="Actualizar este post" />
+                        </Modal>
+
+                        <Modal icon={<FaTrash size='1rem' color='white' />}
+                            className='cursor-pointer flex gap-2 items-center text-white bg-red-400 p-4 rounded-full self-end hover:shadow-md'>
+
+                            <Form action={deletePost} post={post} disabled={true} title="Eliminar este post" />
+                        </Modal>
                     </div>
                 }
-                <Modal icon={<FaPen size='1rem' color='white' />}   
-                    className='cursor-pointer flex gap-2 items-center text-white bg-yellow-600 p-2 rounded-full self-end hover:shadow-md'>
 
-                    <Form action={editPost} post={post} disabled={false} title="Actualizar este post" />
-                </Modal>
 
-                <Modal icon={<FaTrash size='1rem' color='white' />}
-                    className='cursor-pointer flex gap-2 items-center text-white bg-red-600 p-2 rounded-full self-end hover:shadow-md'>
-
-                    <Form action={deletePost} post={post} disabled={true} title="Eliminar este post" />
-                </Modal>
                 {/* {children} */}
             </div>
-
         </div>
     )
 }

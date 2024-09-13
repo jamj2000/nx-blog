@@ -130,18 +130,6 @@ fieldset{
 
 }
 
-nav button {
-  border: none;
-  font-size: inherit;
-  font-weight: 700;
-  background-color: transparent;
-}
-
-nav button:hover {
-    color:blue;
-    text-shadow: 0 0 1px rgb(0, 0, 0)
-}
-
 .social-button {
   font-size: inherit;
   background-color: whitesmoke;

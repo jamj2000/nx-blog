@@ -8,19 +8,19 @@ export default async function Home() {
 
     return (
         <main className="flex-grow grid place-content-center bg-cover bg-slate-50" >
-            <div className="text-center bg-gr p-8 rounded-lg shadow-md">
-                <h1 className="text-3xl font-bold mb-4">Blog</h1>
+            {/* <div className="text-center bg-gr p-8 rounded-lg shadow-md"> */}
+                <h1 className="text-3xl font-bold">Blog</h1>
                 {session && 'Sesión iniciada por ' + session?.user.name}
 
-                <div className="flex flex-col gap-10 mt-20 text-3xl">
+                <div className="flex flex-col gap-4 mt-10 text-3xl">
                     <Link href="/categories" className="text-blue-500 hover:underline">
-                        Listado de categorias
+                        Listado de categorías
                     </Link>
                     <Link href="/posts" className="text-blue-500 hover:underline">
                         Listado de posts
                     </Link>
                 </div>
-            </div>
+            {/* </div> */}
         </main>
     )
 }

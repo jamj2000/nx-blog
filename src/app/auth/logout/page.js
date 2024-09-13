@@ -7,14 +7,12 @@ async function page() {
 
   if (sesion) {
     return (
-      <>
-        <h1>Cerrar sesión</h1>
         <form>
-          <button formAction={logout} className="logout">
-            <img src="/logout.svg" alt="Exit" /> Cerrar sesión
+          <button formAction={logout} className='logout flex gap-2 items-center'>
+            <img src="/logout.svg" alt="Exit" /> 
+            <span className="text-2xl"> Cerrar sesión</span>
           </button>
         </form>
-      </>
     )
   }
   else {

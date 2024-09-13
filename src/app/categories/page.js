@@ -1,8 +1,5 @@
-// pages/categories/index.js
 import Link from 'next/link'
 import { auth } from "@/auth"
-import Category from '@/components/Category'
-import PaginationControls from '@/components/PaginationControls'
 import { getCategories } from '@/lib/actions'
 import { PAGE, PER_PAGE } from '@/lib/pagination'
 import { FaPlus, FaPen, FaTrash } from "react-icons/fa6";
