@@ -142,7 +142,7 @@ export async function getPostsWithCategory(categoryName) {
   try {
     const posts = await prisma.post.findMany({
       include: { categories: true },
-      orderBy: [ { name: 'asc' } ],
+      orderBy: [{ name: 'asc' }],
     })
 
     let filteredPosts = posts
@@ -193,18 +193,27 @@ export async function getPosts() {
   }
 }
 
-
-export async function getPaginatedPosts() {
+export async function getPaginatedPosts({orderBy, start, end}) {
   try {
-    const posts = await prisma.post.findMany({
-      take: end-start,
-      skip: start,
-      include: { categories: true }
-    })
+    const [ total, posts ] = await Promise.all([
+      prisma.post.count(),
+      prisma.post.findMany({
+        take: end - start,
+        skip: start,
+        include: { categories: true },
+        orderBy,
+      })
+    ])
+    // const total = await prisma.post.count()
+    // const posts = await prisma.post.findMany({
+    //   take: end - start,
+    //   skip: start,
+    //   include: { categories: true }
+    // })
 
-    return posts;
+    return { posts, total };
   } catch (error) {
-    // console.log(error);  
+    console.log(error);
     return null;
   }
 }
@@ -387,7 +396,7 @@ export async function getCategoryBySlug(slug) {
 export async function getCategories() {
   try {
     const categories = await prisma.category.findMany({
-      orderBy: [ { name: 'asc' } ]
+      orderBy: [{ name: 'asc' }]
     })
 
     return categories;
@@ -467,7 +476,7 @@ export async function incrementarVista(id) {
 
   await prisma.post.update({
     where: { id },
-    data: {views: {increment: 1}}
+    data: { views: { increment: 1 } }
   });
   revalidatePath('/posts')
 }

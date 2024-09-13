@@ -12,6 +12,9 @@
   margin: 0;
 }
 
+html {
+  scrollbar-gutter: stable; 
+}
 
 header {
   padding: 0 5px;

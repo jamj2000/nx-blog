@@ -12,7 +12,6 @@ async function post({ post }) {
     return (
         <div className='flex justify-between p-4 rounded-md hover:shadow-md' >
             <div className="flex flex-col items-start">
-
                 <Link href={`/posts/${post.slug}`} className="text-left">
                     <div>
                         <b>{post.title}</b>

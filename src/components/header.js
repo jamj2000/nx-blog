@@ -39,7 +39,7 @@ export default function Header({ session }) {
               <button
                 title={`Sesión iniciada por ${session.user.name}`}
                 className='inline-flex items-center px-4 py-2 bg-white text-gray-800 rounded-md hover:bg-gray-100  hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-gray-400'
-                onClick={() => signOut({ callbackUrl: 'http://localhost:3000' })}>
+                onClick={() => signOut()}>
                 <LogOut className='p-1' /> Cerrar sesión
               </button>
             )}
@@ -68,7 +68,7 @@ export default function Header({ session }) {
             <button
               title={`Sesión iniciada por ${session.user.name}`}
               className='inline-flex items-center self-end px-4 py-2 bg-white text-gray-800 rounded-md hover:bg-gray-100  hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-gray-400'
-              onClick={() => signOut({ callbackUrl: 'http://localhost:3000' })}>
+              onClick={() => signOut()}>
               <LogOut className='p-1' /> Cerrar sesión
             </button>
           )}

@@ -48,51 +48,9 @@ export default async function PostHome({ searchParams }) {
                         <FaPlus size='1rem' color='white' />
                     </Link>
                 }
-                {/* <Suspense fallback={<Spinner /> }>
+                <Suspense fallback={<Spinner /> }>
                     <PostList searchParams={searchParams} />
-                </Suspense> */}
-
-                 <PaginationControls
-                    currentPage={page}
-                    hasNextPage={end < posts.length}
-                    hasPrevPage={start > 0}
-                    total={posts.length}
-                />
-                {entries.map((post) => (
-                    <Post key={post.id} post={post}>
-                        {session?.user?.role === 'ADMIN' &&
-                            <div className='flex gap-1 justify-center'>
-                                {post.is_draft &&
-                                    <Link
-                                        className='bg-blue-400 p-4 rounded-full self-end hover:shadow-md'
-                                        title='Publicar post'
-                                        href={{ pathname: '/posts/edit', query: { id: post.id } }}>
-                                        <FaArrowUpRightFromSquare size='1rem' color='white' />
-                                    </Link>
-                                }
-
-                            <Modal icon={<FaPen size='1rem' color='white' />}
-                                className='bg-yellow-400 p-4 rounded-full self-end hover:shadow-md'>
-
-                                <Form action={editPost} disabled={false} title="Actualizar este post" post={post} />
-                            </Modal>
-
-                            <Modal icon={<FaTrash size='1rem' color='white' />}
-                                className='bg-red-400 p-4 rounded-full self-end hover:shadow-md'>
-
-                                <Form action={deletePost} disabled={true} title="Eliminar este post" post={post} />
-                            </Modal>
-                           
-                            </div>
-                        }
-                    </Post>
-                ))}
-                <PaginationControls
-                    currentPage={page}
-                    hasNextPage={end < posts.length}
-                    hasPrevPage={start > 0}
-                    total={posts.length}
-                /> 
+                </Suspense>
 
 
             </div>

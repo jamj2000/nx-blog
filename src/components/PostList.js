@@ -22,32 +22,31 @@ async function PostList({ searchParams}) {
     const start = (page - 1) * per_page // 0, 5, 10 ...
     const end = start + per_page    // 5, 10, 15 ...
 
-    let posts = []
-    posts = await getPaginatedPosts(start, end)
+    const { posts, total}  = await getPaginatedPosts({ orderBy: {created: 'desc'}, start, end})
 
-    let entries = []
+    // let entries = []
 
-    if (start >= 0 && start < posts.length)   // check limits
-        entries = posts.slice(start, end)     // get posts slice
+    // if (start >= 0 && start < total)   // check limits
+    //     entries = posts.slice(start, end)     // get posts slice
 
     return (
         <>
             <PaginationControls
                 currentPage={page}
-                hasNextPage={end < posts.length}
+                hasNextPage={end < total}
                 hasPrevPage={start > 0}
-                total={posts.length}
+                total={total}
             />
 
-            {entries.map((post) =>
+            {posts.map((post) =>
                 <Post key={post.id} post={post} />
             )}
 
             <PaginationControls
                 currentPage={page}
-                hasNextPage={end < posts.length}
+                hasNextPage={end < total}
                 hasPrevPage={start > 0}
-                total={posts.length}
+                total={total}
             />
         </>
     )
