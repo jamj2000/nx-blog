@@ -1,16 +1,15 @@
 'use client'
-
-import { useEffect, useState } from "react"
 import Button from "../button"
 import Imagen from "../imagen"
-import TipTap from "@/components/TipTap"
-// import Tiptap from "../Tip"
+// import Tiptap from "@/components/Tiptap.new"
+import { useState, useEffect } from 'react';
 
-// import dynamic from 'next/dynamic'
- 
-// const TipTap = dynamic(() => import('@/components/TipTap'), {
-//   loading: () => <p>Loading...</p>,
-// })
+
+import dynamic from 'next/dynamic'
+
+const Tiptap = dynamic(() => import('@/components/Tiptap.old', { ssr: false}), {
+    loading: () => <p>Loading...</p>,
+})
 
 function PostForm({ action, post, disabled, title }) {
     const [titulo, setTitulo] = useState('')
@@ -18,19 +17,19 @@ function PostForm({ action, post, disabled, title }) {
     const [texto, setTexto] = useState('')
     const [slug, setSlug] = useState('')
 
+    const [isLoaded, setIsLoaded] = useState(false)
+
     useEffect(() => {
         setTitulo(post.title)
         setAutor(post.author)
         setTexto(post.post)
         setSlug(post.slug)
+        setIsLoaded(true)
     }, [post.title, post.author, post.slug, post.post])
 
 
     return (
         <form action={action} className="w-full max-w-full px-4">
-            {titulo}<br /><br />
-            {post.title + ' - ' + post.id + ' - ' + post.author}<br />
-            {post.post}<br />
             <Button title={title} className="font-bold w-full bg-blue-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-blue-700 hover:text-gray-100" />
 
             <input type='hidden' name='id' value={post?.id} />
@@ -77,11 +76,16 @@ function PostForm({ action, post, disabled, title }) {
                     </div>
                 </div>
 
-                <div className='mt-30'>
-                    {/* <TipTap contenido={texto} /> */}
-                    {/* <input type="hidden" name='post' defaultValue={texto} />  */}
-                    <TipTap contenido={texto} />
-                </div>
+
+                {isLoaded &&
+                    <div className='mt-30'>
+                           {/* <Tiptap content={texto} setContent={ setTexto } /> */}
+                        <Tiptap content={texto} /> 
+                        <input type="hidden" name='post' value={texto} />
+                        {/* {texto} */}
+                    </div>
+                }
+
 
                 <div className="hidden">
                     <label className="flex flex-col md:flex-row items-center md:space-x-4">
@@ -103,9 +107,5 @@ function PostForm({ action, post, disabled, title }) {
     )
 }
 
-
-//              {/* <Suspense fallback={'Loading ...'}> */}
-//              {/* <Categories postId={post?.id} disabled={disabled} /> */}
-//              {/* </Suspense> */}
 
 export default PostForm

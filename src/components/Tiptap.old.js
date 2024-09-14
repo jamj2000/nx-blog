@@ -33,27 +33,22 @@ import {
   Delete,
   Eye
 } from 'lucide-react'
+
 import { useEffect, useState } from 'react'
 
 
-// import { useEditor, EditorContent } from '@tiptap/react'
-// import StarterKit from '@tiptap/starter-kit'
 
-
-
-
-
-const MenuBar = ({ setMessage }) => {
+const MenuBar = ({ content, setMessage }) => {
   const { editor } = useCurrentEditor()
 
   const [color, setColor] = useState('#000000')
   const [texto, setTexto] = useState(editor.getHTML())
 
-  // useEffect(() => {
-  //   setTexto(editor?.getHTML())
-  // }, [editor])
+  useEffect(() => {
+    editor.commands.setContent(content)
+  }, [])
 
-  if (!editor) {
+    if (!editor) {
     return null
   }
 
@@ -63,6 +58,11 @@ const MenuBar = ({ setMessage }) => {
     alert(html) // Mostrar el HTML en una alerta
   }
 
+  // editor.on('create', ({ editor }) => {
+  //   setTexto(content)
+  //   editor.commands.setContent(content)
+  // })
+
   editor.on('update', ({ editor }) => {
     setTexto(editor.getHTML())
   })
@@ -71,7 +71,7 @@ const MenuBar = ({ setMessage }) => {
   return (
     <>
       <input type="hidden" name='post' defaultValue={texto} />  {/* Campo asociado dentro del formulario padre */}
-
+      { content }
       <Bold strokeWidth={4}
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={
@@ -266,21 +266,30 @@ const extensions = [
 ]
 
 
-export default function Editor({ contenido }) {
-  const [message, setMessage] = useState('')
-  // const editor = useEditor({
-  //   // https://tiptap.dev/blog/release-notes/say-hello-to-tiptap-2-5-our-most-performant-editor-yet
-  //   immediatelyRender: false,
-  //   shouldRerenderOnTransaction: false,
-  // })
 
-  return (
+
+export default function Editor({ content }) {
+  const [message, setMessage] = useState('')
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, []);
+
+  if (isLoaded) return (
     // <>
     //   <MenuBar setMessage={setMessage} editor={editor} />
     //   <EditorContent editor={editor} extensions={extensions} content={contenido}/>
     // </>
-    <EditorProvider slotBefore={<MenuBar setMessage={setMessage} />} extensions={extensions} content={contenido} >
-      {/* <p>{message}</p> */}
-    </EditorProvider>
+    <>      
+      <EditorProvider
+        immediatelyRender={false}
+        slotBefore={<MenuBar setMessage={setMessage} content={content} />}
+        extensions={extensions}
+        content={content} >
+        {/* <p>{message}</p> */}
+      </EditorProvider>
+    </>
+
   )
 }
