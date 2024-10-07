@@ -82,7 +82,6 @@ function PostForm({ action, post, disabled, title }) {
                            {/* <Tiptap content={texto} setContent={ setTexto } /> */}
                         <Tiptap content={texto} /> 
                         <input type="hidden" name='post' value={texto} />
-                        {/* {texto} */}
                     </div>
                 }
 

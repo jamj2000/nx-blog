@@ -34,7 +34,7 @@ import {
   Eye
 } from 'lucide-react'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 
 
 
@@ -44,11 +44,12 @@ const MenuBar = ({ content, setMessage }) => {
   const [color, setColor] = useState('#000000')
   const [texto, setTexto] = useState(editor.getHTML())
 
-  useEffect(() => {
-    editor.commands.setContent(content)
+  useLayoutEffect(() => {
+    setTimeout( ()=> editor.commands.setContent(content), 2000)
+    // if (editor) editor.commands.setContent(content)
   }, [])
 
-    if (!editor) {
+  if (!editor) {
     return null
   }
 
@@ -72,6 +73,7 @@ const MenuBar = ({ content, setMessage }) => {
     <>
       <input type="hidden" name='post' defaultValue={texto} />  {/* Campo asociado dentro del formulario padre */}
       { content }
+      <hr></hr>
       <Bold strokeWidth={4}
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={
@@ -286,7 +288,8 @@ export default function Editor({ content }) {
         immediatelyRender={false}
         slotBefore={<MenuBar setMessage={setMessage} content={content} />}
         extensions={extensions}
-        content={content} >
+        content={content} 
+        >
         {/* <p>{message}</p> */}
       </EditorProvider>
     </>
